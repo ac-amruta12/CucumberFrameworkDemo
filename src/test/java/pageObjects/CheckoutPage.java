@@ -1,19 +1,21 @@
 package pageObjects;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utils.GenericUtils;
+
 public class CheckoutPage {
 	
 	WebDriver driver;
+	GenericUtils genericUtils;
 	
 	public CheckoutPage(WebDriver driver)
 	{
-		this.driver=driver;		
+		this.driver=driver;	
+		genericUtils=new GenericUtils(driver);
 	}
 	
 	By productName =By.xpath("//table//tbody//td[2]/p");
@@ -23,7 +25,8 @@ public class CheckoutPage {
 	
 	public String getProductNameAddedonCart()
 	{
-		return driver.findElement(productName).getText();
+		String cartProdut = driver.findElement(productName).getText();
+		return genericUtils.getSubstring(cartProdut);
 	}
 	
 	public String getProductQuantityPresentinCart()
@@ -31,28 +34,14 @@ public class CheckoutPage {
 		return driver.findElement(productQuantity).getText();
 	}
 	
-	public String isapplyBTNVisible()
+	public boolean isapplyBTNVisible()
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-	    boolean element = wait.until(ExpectedConditions.presenceOfElementLocated(applyBTN)).isDisplayed();
-		
-	    if(element==true)
-	    	return "Element is visible on page";
-	    
-	    else
-	    	return "Element is not visible on page";
+		return genericUtils.isElementVisible(applyBTN);
 	}
 	
-	public String isPlaceOrderBTNVisible()
+	public boolean isPlaceOrderBTNVisible()
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-	    boolean element = wait.until(ExpectedConditions.presenceOfElementLocated(placeOrderBTN)).isDisplayed();
-		
-	    if(element==true)
-	    	return "Element is visible on page";
-	    
-	    else
-	    	return "Element is not visible on page";
+		return genericUtils.isElementVisible(placeOrderBTN);
 	}
 	
 

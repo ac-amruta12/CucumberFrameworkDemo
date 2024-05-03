@@ -4,13 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import Utils.GenericUtils;
+
 public class GreenKartPage {
 	
 	WebDriver driver;
+	GenericUtils genericUtils;
 	
 	public GreenKartPage(WebDriver driver)
 	{
 		this.driver=driver;
+		genericUtils= new GenericUtils(driver);
 	}
 	
 	By search=By.xpath("//input[@type='search']");
@@ -28,7 +32,8 @@ public class GreenKartPage {
 	
 	public String getProductNameofSearchItem()
 	{
-		return driver.findElement(productName).getText();
+		String product = driver.findElement(productName).getText();
+		return genericUtils.getSubstring(product);
 	}
 	
 	public void enterQuantity(Integer number)

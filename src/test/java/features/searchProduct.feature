@@ -1,3 +1,4 @@
+@ProductSearch
 Feature: Search product and place order for product
 
   Scenario Outline: Search for product on both home and offer page for Tomato

@@ -1,10 +1,10 @@
 package stepDefinitions;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-
+import Utils.GenericUtils;
 import Utils.TestContextSetup;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,16 +15,17 @@ import pageObjects.GreenKartPage;
 public class CheckoutPageStepDefinations {
 
 	TestContextSetup testContextSetup;
-
+	CheckoutPage checkoutPage;
+	
 	public CheckoutPageStepDefinations(TestContextSetup testContextSetup) {
 		this.testContextSetup = testContextSetup;
-	}
+		checkoutPage=testContextSetup.pageObjectManager.getCheckoutPage();
+		}
 
 	@Then("User verified product name and quantity on checkout")
 	public void user_verified_product_name_and_quantity_on_checkout() throws InterruptedException 
 	{
-		CheckoutPage checkoutPage = testContextSetup.pageObjectManager.getCheckoutPage();
-		String cartProductName = checkoutPage.getProductNameAddedonCart().split("-")[0].trim();
+		String cartProductName = checkoutPage.getProductNameAddedonCart();
 		System.out.println("product on cart : "+cartProductName);
 		
 		Thread.sleep(2000);
@@ -37,10 +38,10 @@ public class CheckoutPageStepDefinations {
 	
 	@Then("User verified that Apply and Place Order buttons are visible on checkout")
 	public void user_verified_that_apply_and_place_order_buttons_are_visible_on_checkout() throws InterruptedException {
-		CheckoutPage checkoutPage = testContextSetup.pageObjectManager.getCheckoutPage();
-		System.out.println(checkoutPage.isapplyBTNVisible());
+		
+		Assert.assertEquals(checkoutPage.isapplyBTNVisible(), true);
 		Thread.sleep(2000);
-		System.out.println(checkoutPage.isPlaceOrderBTNVisible());
+		Assert.assertEquals(checkoutPage.isPlaceOrderBTNVisible(), true);
 	}
 
 }

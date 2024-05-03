@@ -1,3 +1,4 @@
+@Checkout
 Feature: Place order for Product and verify details on checkout
 
   Scenario Outline: Place order for product and verify checkout details

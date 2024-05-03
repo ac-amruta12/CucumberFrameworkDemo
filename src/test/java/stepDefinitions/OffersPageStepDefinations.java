@@ -1,6 +1,6 @@
 package stepDefinitions;
 
-import org.testng.Assert;
+import org.junit.Assert;
 
 import Utils.TestContextSetup;
 import io.cucumber.java.en.Then;
@@ -8,19 +8,19 @@ import pageObjects.OffersPage;
 
 public class OffersPageStepDefinations {
 	
-	//WebDriver driver;
-	//String aProductName;
 	TestContextSetup testContextSetup;
+	OffersPage offersPage;
 	
 	public OffersPageStepDefinations(TestContextSetup testContextSetup)
 	{
 		this.testContextSetup=testContextSetup;
+		offersPage = testContextSetup.pageObjectManager.getOffersPage();
 	}
 	
 	@Then("^User searched product with shortform as (.+) on offer page to check existance of product$")
 	public void user_searched_product_with_shortform_as_on_offer_page_to_check_existance_of_product(String string) throws InterruptedException {
 	    
-		OffersPage offersPage = testContextSetup.pageObjectManager.getOffersPage();
+		//OffersPage offersPage = testContextSetup.pageObjectManager.getOffersPage();
 		offersPage.switchToOffersPage();
 		Thread.sleep(3000);
 		testContextSetup.genericUtils.switchToChild();

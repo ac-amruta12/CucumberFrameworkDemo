@@ -16,24 +16,27 @@ public class TestBase {
 	
 	public WebDriver webDriverManager() throws IOException
 	{
-
 		FileInputStream fis = new FileInputStream("./src/test/resources/global.properties");
 		Properties prop = new Properties();
 		prop.load(fis);
-		String url= prop.getProperty("QAUrl");
+		String url= prop.getProperty("Url");
 		
+		String browser=prop.getProperty("browserName");
+		String browser_from_system = System.getProperty("browserName");
+		
+		browser= browser_from_system !=null ? browser_from_system : browser;
 		
 		if(driver==null)
 		{
-			if(prop.getProperty("browserName").equalsIgnoreCase("chrome"))
+			if(browser.equalsIgnoreCase("chrome"))
 			{
 				System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
 			    driver= new ChromeDriver();
 			}
 			
-			if(prop.getProperty("browserName").equalsIgnoreCase("firefox"))
+			if(browser.equalsIgnoreCase("firefox"))
 			{
-				System.setProperty("webdriver.gecko.driver", "./drivers/chromedriver.exe");
+				System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver.exe");
 			    driver= new FirefoxDriver();
 			}
 		

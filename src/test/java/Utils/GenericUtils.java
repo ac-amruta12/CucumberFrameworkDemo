@@ -29,15 +29,21 @@ public class GenericUtils {
 		driver.switchTo().window(child);
 	}
 	
-	public void getSubstring(String str)
+	public String getSubstring(String str)
 	{
-		
+		return str.split("-")[0].trim();
 	}
 
-	public boolean isElementPresent(By by)
+	public boolean isElementVisible(By by)
 	{
+		boolean bln = false;
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-	    boolean element = wait.until(ExpectedConditions.presenceOfElementLocated(by)).isDisplayed();
-		return element;   
+		try
+		{
+	    bln = wait.until(ExpectedConditions.presenceOfElementLocated(by)).isDisplayed();
+		}
+		catch(Exception e)
+		{}
+		return bln;   
 	}
 }

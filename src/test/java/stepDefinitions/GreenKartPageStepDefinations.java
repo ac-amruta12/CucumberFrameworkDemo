@@ -1,7 +1,5 @@
 package stepDefinitions;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,9 +14,11 @@ public class GreenKartPageStepDefinations {
 	// WebDriver driver;
 	// String aProductName;
 	TestContextSetup testContextSetup;
+	GreenKartPage greenKartPage;
 
 	public GreenKartPageStepDefinations(TestContextSetup testContextSetup) {
 		this.testContextSetup = testContextSetup;
+		greenKartPage=testContextSetup.pageObjectManager.getGreenKartPage();
 	}
 
 	@Given("User is on Greencart landing page")
@@ -30,17 +30,15 @@ public class GreenKartPageStepDefinations {
 	public void user_searched_product_with_shortform_as_and_capture_actual_name_of_product(String str)
 			throws InterruptedException {
 		
-		GreenKartPage greenKartPage = testContextSetup.pageObjectManager.getGreenKartPage();
 		greenKartPage.searchItem(str);
 		Thread.sleep(3000);
 
-		testContextSetup.aProductName = greenKartPage.getProductNameofSearchItem().split("-")[0].trim();
-		System.out.println(testContextSetup.aProductName);
+		testContextSetup.aProductName = greenKartPage.getProductNameofSearchItem();
+		System.out.println("product on page : "+ testContextSetup.aProductName);
 	}
 
 	@When("^User provided product quantity (.+) and Added product to cart$")
 	public void user_provided_product_quantity_and_added_product_to_cart(Integer quantity) throws InterruptedException {
-		GreenKartPage greenKartPage = testContextSetup.pageObjectManager.getGreenKartPage();
 		greenKartPage.enterQuantity(quantity);
 		
 		Thread.sleep(2000);
@@ -54,7 +52,7 @@ public class GreenKartPageStepDefinations {
 	
 	@When("User proceed to checkout")
 	public void user_proceed_to_checkout() {
-		GreenKartPage greenKartPage = testContextSetup.pageObjectManager.getGreenKartPage();
+		//GreenKartPage greenKartPage = testContextSetup.pageObjectManager.getGreenKartPage();
 		greenKartPage.goToCart();
 		try {
 			Thread.sleep(2000);
